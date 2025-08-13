@@ -1,0 +1,38 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 70px;
+}
+
+#currentPage {
+    height: 100%;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav {
+    height: 100%;
+    width: 30%;
+}
+ul {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+li {
+    height: 100%;
+    width: 150px;
+    list-style: none;
+    background-color: orange;
+}
+
+.header__icon {
+    width: 30px;
+    height: 30px;
+}
