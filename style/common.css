@@ -6,6 +6,8 @@
     color: white;
 }
 
+html {}
+
 body {
     background-color: black;
     overflow-x: hidden;
@@ -13,15 +15,9 @@ body {
 }
 
 main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-main {
     background-color: transparent;
     position: relative;
+    margin: auto;
     z-index: 1;
 }
 

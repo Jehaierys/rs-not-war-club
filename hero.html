@@ -5,6 +5,8 @@
   <title>Boom em Down</title>
   <link rel="stylesheet" href="style/common.css">
   <link rel="stylesheet" href="style/header.css">
+  <link rel="stylesheet" href="style/hero.css">
+  <link rel="stylesheet" href="style/pick-panel.css">
   <link rel="icon" href="icon/explosion.png">
 </head>
 <body>
@@ -22,11 +24,17 @@
 
 <main>
 <div class="hero__account-data">
-  <div class="hero__card">
-    <img src="" alt="" class="hero__img">
+  <button class="hero__pick-button" onclick="heroFacade.pickPanel()">
+    <img src="img/stalin_intro.jpeg" alt="hero" class="hero__img">
+  </button>
+  <div class="hero__statistics">
+    <div class="hero__div-wins">Wins: <span id="wins" class="hero__span-wins">0</span></div>
+    <div class="hero__div-defeats">Defeats: <span id="defeats" class="hero__span-defeats">0</span></div>
   </div>
 </div>
 </main>
+
+<script src="script/hero/HeroFacade.js"></script>
 
 </body>
 </html>
