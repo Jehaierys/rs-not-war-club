@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Boom em Down</title>
+
+  <link rel="stylesheet" href="style/registration.css">
+  <link rel="stylesheet" href="style/common.css">
+  <link rel="stylesheet" href="style/header.css">
+  <link rel="stylesheet" href="style/home.css">
+  <link rel="stylesheet" href="style/pvp.css">
+  <link rel="stylesheet" href="style/pve.css">
+  <link rel="stylesheet" href="style/hero.css">
+  <link rel="stylesheet" href="style/setting.css">
+  <link rel="stylesheet" href="style/pick-panel.css">
+
+  <link rel="icon" href="icon/explosion.png">
+</head>
+<body>
+<header>
+  <h2 id="currentPage">Home</h2>
+  <nav>
+    <ul>
+      <li class="header__li">
+        <button class="header__button" onclick="router.route(PAGES.HOME_PAGE)">
+          <img src="icon/home.png" alt="home" class="header__icon">
+        </button>
+      </li>
+      <li class="header__li">
+        <button class="header__button" onclick="router.route(PAGES.HERO_PAGE)">
+          <img src="icon/character.png" alt="character" class="header__icon">
+        </button>
+      </li>
+      <li class="header__li">
+        <button class="header__button" onclick="router.route(PAGES.SETTING_PAGE)">
+          <img src="icon/setting.png" alt="setting" class="header__icon">
+        </button>
+      </li>
+    </ul>
+  </nav>
+</header>
+<main class="main">
+
+  <section class="registration__section">
+    <form class="registration__form">
+      <h3 class="registration__header">Welcome</h3>
+      <input id="username" type="text" class="registration__input" placeholder="username" maxlength="15">
+      <button class="registration__button" type="button" onclick="account.register()">Ok</button>
+    </form>
+  </section>
+
+  <section class="hero__section">
+    <div class="hero__content">
+      <button class="hero__pick-button" onclick="router.route(PAGES.PICK_PAGE)">
+        <img  id="currentHeroImg" src="img/stalin_intro.jpeg" alt="hero" class="hero__img">
+      </button>
+      <div class="hero__statistics">
+        <div class="hero__div-wins">Wins: <span id="wins" class="hero__span-wins">0</span></div>
+        <div class="hero__div-defeats">Defeats: <span id="defeats" class="hero__span-defeats">0</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pick__section">
+    <div class="pick__img-holder" onclick="account.hero(HEROES.BEN_LADEN)">
+      <img src="img/ben_laden.webp" alt="Ben Laden" class="pick__img">
+    </div>
+    <div class="pick__img-holder" onclick="account.hero(HEROES.HITLER)">
+      <img src="img/hitler.jpeg" alt="Hitler" class="pick__img">
+    </div>
+    <div class="pick__img-holder" onclick="account.hero(HEROES.IN)">
+      <img src="img/in.jpeg" alt="In" class="pick__img">
+    </div>
+    <div class="pick__img-holder" onclick="account.hero(HEROES.STALIN)">
+      <img src="img/stalin_intro.jpeg" alt="Stalin" class="pick__img">
+    </div>
+    <div class="pick__img-holder" onclick="account.hero(HEROES.SECRET)">
+      <img src="img/putin.png" alt="?" class="pick__img">
+    </div>
+  </section>
+
+  <section class="home__section">
+    <div class="home__container">
+      <button class="home__button" onclick="router.route(PAGES.PVP_PAGE)">PVP</button>
+      <button class="home__button" onclick="router.route(PAGES.PVE_PAGE)">PVE</button>
+    </div>
+  </section>
+
+  <section class="pvp__section">
+
+  </section>
+
+  <section class="pve__section">
+
+  </section>
+
+  <section class="setting__section">
+  </section>
+
+</main>
+<script src="script/PreDefinition.js"></script>
+<!--<script src="script/hero/Hero.js"></script>-->
+<script src="script/Router.js"></script>
+<script src="script/Account.js"></script>
+<script src="script/Bootstrap.js"></script>
+</body>
+</html>

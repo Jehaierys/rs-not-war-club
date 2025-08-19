@@ -1,12 +1,14 @@
 :root {
     --header-height: 70px;
+    --transparent: transparent;
 }
 
 header {
-    display: flex;
+    display: none;
     justify-content: space-between;
     width: 100%;
     height: var(--header-height);
+    background-color: var(--transparent);
 }
 
 #currentPage {
@@ -21,6 +23,7 @@ nav {
     height: 100%;
     width: 30%;
 }
+
 ul {
     width: 100%;
     height: 100%;
@@ -29,11 +32,23 @@ ul {
     justify-content: space-between;
 }
 
-li {
+.header__li {
     height: 100%;
     width: 150px;
     list-style: none;
-    background-color: orange;
+    background-color: red;
+}
+
+.header__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.header__button:hover {
+    background-color: violet;
 }
 
 .header__icon {

@@ -1,9 +1,12 @@
-let account = Account.upload();
-const welcome = new Welcome();
+account = new Account();
+router = new Router();
+// hero = new Hero();
 
-welcome.meet();
-
-console.log("Текущий файл:", window.location.pathname);
 window.addEventListener('DOMContentLoaded', () => {
-
-})
+    try {
+        account.upload();
+    } catch (e) {
+        console.log(e.toString());
+    }
+    router.welcome();
+});

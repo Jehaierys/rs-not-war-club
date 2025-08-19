@@ -1,24 +1,29 @@
-main {
+.hero__section {
     width: 80%;
-}
-.hero__account-data {
-    display: flex;
-}
-.hero__account-data-disabled {
     display: none;
 }
+
+.hero__section-disabled {
+    display: none;
+}
+
 .hero__pick-button {
     width: 300px;
 }
+
 .hero__img {
+    width: 300px;
     object-fit: cover;
 }
+
 .hero__statistics {
     transform: translateX(20px);
 }
+
 .hero__div-defeats, .hero__span-defeats {
     color: red;
 }
+
 .hero__div-wins, .hero__span-wins {
     color: green;
 }
