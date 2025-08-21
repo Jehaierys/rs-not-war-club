@@ -2,6 +2,7 @@ class Account {
     #username = '';
     #wins;
     #defeats;
+    #draws;
     #hero = HEROES.STALIN;
     #registered = false;
 
@@ -17,6 +18,7 @@ class Account {
     refreshFightStatistics() {
         this.#defeats = 0;
         this.#wins = 0;
+        this.#draws = 0;
     }
 
     save() {
@@ -29,6 +31,7 @@ class Account {
             wins: this.#wins,
             defeats: this.#defeats,
             hero: this.#hero,
+            draws: this.#draws
         };
     }
 
@@ -52,17 +55,40 @@ class Account {
             throw new Error('Local storage empty');
         }
         acc = JSON.parse(acc);
-        this.#translate(acc.username, acc.wins, acc.defeats, acc.hero);
+        this.#translate(acc.username, acc.wins, acc.defeats, acc.draws,  acc.hero);
     }
 
-    #translate(username, wins, defeats, hero) {
+    #translate(username, wins, defeats, draws, hero) {
         this.#username = username;
         this.#wins = wins;
         this.#defeats = defeats;
+        this.#draws = draws;
         this.#registered = true;
 
         if (hero) {
             this.#hero = hero;
         }
+    }
+
+    incrementDefeats() {
+        this.#defeats += 1;
+    }
+
+    incrementWins() {
+        this.#wins += 1;
+    }
+
+    incrementDraws() {
+        this.#draws += 1;
+    }
+
+    statistics() {
+        const map = new Map();
+
+        map.set('wins', this.#wins);
+        map.set('defeats', this.#defeats);
+        map.set('draws', this.#draws);
+
+        return map;
     }
 }

@@ -9,6 +9,8 @@ window.PAGES = {
 };
 
 window.HEROES = {
+    size: 5,
+
     BEN_LADEN: {
         name: 'Ben Laden',
         introImgPath: 'img/ben_laden.webp'
@@ -28,7 +30,21 @@ window.HEROES = {
     SECRET: {
         name: 'Secret',
         introImgPath: 'img/putin.png'
+    },
+
+    list() {
+        return Array.of(
+            this.BEN_LADEN,
+            this.HITLER,
+            this.IN,
+            this.STALIN,
+            this.SECRET
+        );
     }
 }
 
-let account, router, hero;
+let account, router, zoneInputValidator, zoneInputObserver, pvpBattle, terminal, heroPageHandler, ashes, soundAccompaniment;
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

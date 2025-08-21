@@ -1,6 +1,12 @@
 account = new Account();
 router = new Router();
-// hero = new Hero();
+zoneInputValidator = new ZoneInputValidator();
+zoneInputObserver = new ZoneInputObserver(zoneInputValidator);
+pvpBattle = new PvpBattle(zoneInputValidator);
+terminal = new Terminal();
+heroPageHandler = new HeroPageHandler();
+ashes = new Ashes();
+soundAccompaniment = new SoundAccompaniment();
 
 window.addEventListener('DOMContentLoaded', () => {
     try {
@@ -9,4 +15,6 @@ window.addEventListener('DOMContentLoaded', () => {
         console.log(e.toString());
     }
     router.welcome();
+    ashes.launch().then();
+    soundAccompaniment.main();
 });

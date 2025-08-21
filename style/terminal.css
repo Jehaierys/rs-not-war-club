@@ -1,0 +1,34 @@
+:root {
+
+}
+
+.terminal__section {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    z-index: 3;
+    bottom: 0;
+    width: 100vw;
+    height: 20vh;
+    border: 2px solid red;
+    background-color: transparent;
+
+    overflow: auto;           /* разрешаем прокрутку */
+    -ms-overflow-style: none; /* убираем полосу в IE и старом Edge */
+    scrollbar-width: none;    /* убираем полосу в Firefox */
+}
+
+.terminal__section::-webkit-scrollbar {
+    display: none;
+}
+
+.terminal__message-holder {
+    color: red;
+}
+
+.terminal__space {
+    height: 3vh;
+}
+
+.scrollable {
+}

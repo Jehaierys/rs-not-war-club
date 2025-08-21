@@ -1,6 +1,7 @@
 :root {
     --button-height: 50px;
     --button-transition-duration: 0.7s;
+    --default-button-border: 3px solid white;
 }
 
 .registration__section {
@@ -66,7 +67,7 @@
     height: var(--button-height);
     width: 120px;
     border-radius: calc(var(--button-height) / 2);
-    border: 3px solid white;
+    border: var(--default-button-border);
     transition: color ease calc(var(--button-transition-duration) / 5),
                 background-color ease-in-out var(--button-transition-duration),
                 border ease-in-out var(--button-transition-duration);

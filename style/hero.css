@@ -3,6 +3,10 @@
     display: none;
 }
 
+.hero__content {
+    margin-left: 2vw;
+}
+
 .hero__section-disabled {
     display: none;
 }
@@ -26,4 +30,8 @@
 
 .hero__div-wins, .hero__span-wins {
     color: green;
+}
+
+.hero__div-draws, .hero__span-draws {
+    color: dimgrey;
 }
