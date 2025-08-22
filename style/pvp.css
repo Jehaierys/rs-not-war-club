@@ -61,7 +61,6 @@
     font-weight: 700;
     text-align: center;
 }
-
 .pvp__div-hp.user {
     background: linear-gradient(to right, red var(--user-hp-percent), transparent 0);
 }

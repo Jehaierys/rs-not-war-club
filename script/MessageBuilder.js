@@ -23,6 +23,8 @@ class MessageBuilder {
     damage(damage) {
         if (damage > 0) {
             this.#message += `, нанесено ${damage} ед. урона`;
+        } else {
+            this.#message += ', неудача';
         }
         return this;
     }

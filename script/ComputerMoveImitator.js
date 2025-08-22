@@ -1,6 +1,7 @@
 class ComputerMoveImitator {
     static generateComputerAttackZones() {
-        return Zones.getUserDefenceZones()[this.#randomIndex()];
+        const  zone = Zones.getUserDefenceZones()[this.#randomIndex()]
+        return Array.of(zone);
     }
 
     static generateComputerDefenceZones() {

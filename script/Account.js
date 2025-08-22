@@ -66,7 +66,7 @@ class Account {
         this.#registered = true;
 
         if (hero) {
-            this.#hero = hero;
+            this.#hero = HEROES.getByName(hero.name);
         }
     }
 

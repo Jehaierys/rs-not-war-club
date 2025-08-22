@@ -45,11 +45,42 @@ window.HEROES = {
             this.STALIN,
             this.SECRET
         );
+    },
+
+    getByName(name) {
+        switch (name) {
+            case this.BEN_LADEN.name:
+                return this.BEN_LADEN;
+            case this.STALIN.name:
+                return this.STALIN;
+            case this.IN.name:
+                return this.IN;
+            case this.HITLER.name:
+                return this.HITLER;
+            case this.SECRET.name:
+                return this.SECRET;
+            default:
+                throw new Error('There is no hero with name ' + name);
+        }
     }
 }
 
-let account, router, zoneInputValidator, zoneInputObserver, pvpBattle, terminal, heroPageHandler, ashes, soundAccompaniment;
+let account, router, zoneInputValidator,
+    zoneInputObserver, pvpBattle, terminal,
+    heroPageHandler, ashes, soundAccompaniment,
+    defaultMessageTemplate;
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+window.DEFAULT_MESSAGE_TEMPLATES = {
+    SUCCESSFUL_ATTACK: {
+        'Ben Laden': {
+
+        }
+    },
+    UNSUCCESSFUL_ATTACK: {},
+    SUCCESSFUL_DEFENCE: {},
+    UNSUCCESSFUL_DEFENCE: {}
 }

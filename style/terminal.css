@@ -28,6 +28,7 @@
 
 .terminal__space {
     height: 3vh;
+    flex-shrink: 0;
 }
 
 .scrollable {

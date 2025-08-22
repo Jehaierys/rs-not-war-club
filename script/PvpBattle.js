@@ -33,9 +33,12 @@ class PvpBattle {
 
     #initialize() {
         zoneInputValidator.initialize();
+
         this.#setUpHeroes();
         this.#initializeHp();
         this.#uploadPhotos();
+
+        soundAccompaniment.fightTheme(this.#userHero);
 
         console.log('pvp battle: ' + this.#userHero.name + ' against ' + this.#computerHero.name);
     }
@@ -62,7 +65,7 @@ class PvpBattle {
         this.#userHpScale.innerHTML = this.#userHp;
         this.#computerHpScale.innerHTML = this.#computerHp;
 
-        this.#userHpScale.style.setProperty('--user-ph-percent', '100%');
+        this.#userHpScale.style.setProperty('--user-hp-percent', '100%');
         this.#computerHpScale.style.setProperty('--computer-hp-percent', '100%');
     }
 
@@ -95,25 +98,67 @@ class PvpBattle {
         const computerAttackZones = ComputerMoveImitator.generateComputerAttackZones();
         const computerDefenceZones = ComputerMoveImitator.generateComputerDefenceZones();
 
+        // alert('user attacks ' + Zones.extractType(userAttackZones[0])
+        //     + ', user defends ' + Zones.extractType(userDefenceZones[0]) + ', ' + Zones.extractType(userDefenceZones[1]) + '\n\n'
+        //  + 'computer attacks ' +Zones.extractType( computerAttackZones[0]) +
+        //     ', computer defends ' + Zones.extractType(computerDefenceZones[0]) + ', ' + Zones.extractType(computerDefenceZones[1]))
+
         if (!computerDefenceZones.includes(userAttackZones[0])) {
             // damage computer
-            this.#computerHp -= 2000;
+            const damage = Damage.generate();
+
+            this.#computerHp -= damage;
             this.#computerHpScale.innerHTML = this.#computerHp;
             this.#computerHpScale.style
                 .setProperty('--computer-hp-percent' , `${Math.round(this.#computerHp / this.#computerHero.maxHp * 100)}%`);
 
-            const message = this.#userHero.name + ' наносит 2000 ед. урона ' + this.#computerHero.name;
+            const message = MessageBuilder
+                .builder()
+                .attacking(this.#userHero.name)
+                .attackFlow(true, Zones.extractType(userAttackZones[0]))
+                .defending(this.#computerHero.name)
+                .damage(damage)
+                .build()
+
             terminal.message(message);
+        } else {
+            const message = MessageBuilder.builder()
+                .attacking(this.#userHero.name)
+                .attackFlow(false, Zones.extractType(userAttackZones[0]))
+                .defending(this.#computerHero.name)
+                .damage(0)
+                .build()
+
+            terminal.message(message)
         }
 
         if (!userDefenceZones.includes(computerAttackZones[0])) {
             // damage user
-            this.#userHp -= 2000;
+            const damage = Damage.generate();
+
+            this.#userHp -= damage;
             this.#userHpScale.innerHTML = this.#userHp;
-            this.#computerHpScale.style
+            this.#userHpScale.style
                 .setProperty('--user-hp-percent', `${Math.round(this.#userHp / this.#userHero.maxHp * 100)}%`);
 
-            const message = this.#computerHero.name + ' наносит 2000 ед урона ' + this.#userHero.name;
+            const message = MessageBuilder
+                .builder()
+                .attacking(this.#computerHero.name)
+                .attackFlow(true, Zones.extractType(computerAttackZones[0]))
+                .defending(this.#userHero.name)
+                .damage(damage)
+                .build()
+
+            terminal.message(message);
+        } else {
+            const message = MessageBuilder
+                .builder()
+                .attacking(this.#computerHero.name)
+                .attackFlow(false, Zones.extractType(computerAttackZones[0]))
+                .defending(this.#userHero.name)
+                .damage(0)
+                .build()
+
             terminal.message(message);
         }
 
@@ -121,6 +166,7 @@ class PvpBattle {
     }
 
     #finish() {
+        soundAccompaniment.stop();
         terminal.cleanUp();
         this.#processResults();
         router.route(PAGES.HERO_PAGE);
@@ -128,10 +174,13 @@ class PvpBattle {
 
     #processResults() {
         if (this.#userHp > 0) {
+            alert('Вы победили');
             account.incrementWins();
         } else if (this.#computerHp > 0) {
+            alert('вы проиграли')
             account.incrementDefeats();
         } else {
+            alert('Победила дружба бензопила')
             account.incrementDraws();
         }
         account.save();

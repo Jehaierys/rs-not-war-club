@@ -28,4 +28,19 @@ class Zones {
     static getAllZones() {
         return this.getUserAttackZones().concat(this.getUserDefenceZones());
     }
+
+    static types() {
+        return {
+            OFFENSIVE: 'offensive',
+            DIVERSION: 'diversion',
+            PROPAGANDA: 'propaganda',
+            EXORCISM: 'exorcism',
+            NUCLEAR: 'nuclear'
+        };
+    }
+
+    static extractType(inputElement) {
+        const id = inputElement.id;
+        return Object.values(this.types()).filter(value => id.includes(value))[0];
+    }
 }
