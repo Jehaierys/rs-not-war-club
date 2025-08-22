@@ -96,6 +96,5 @@ class Router {
                 pvpBattle.start();
                 break;
         }
-
     }
 }

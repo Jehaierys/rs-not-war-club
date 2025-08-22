@@ -1,16 +1,15 @@
 class ZoneInputValidator {
-    #firstDefenceZone = document.getElementById('defence_diversion');
-    #secondDefenceZone = document.getElementById('defence_offensive');
-
-    #firstAttackZone = document.getElementById('attack_offensive');
+    #firstDefenceZone;
+    #secondDefenceZone;
+    #firstAttackZone;
 
     initialize() {
-        this.#uploadZones();
+        this.#countZones();
         this.#uncheckZones();
         this.#initFirstZones();
     }
 
-    #uploadZones() {
+    #countZones() {
         const attackZones = Zones.getUserAttackZones();
         const defenceZones = Zones.getUserDefenceZones();
 
@@ -44,6 +43,10 @@ class ZoneInputValidator {
     }
 
     #initFirstZones() {
+        this.#firstDefenceZone = document.getElementById('defence_diversion');
+        this.#secondDefenceZone = document.getElementById('defence_offensive');
+        this.#firstAttackZone = document.getElementById('attack_offensive');
+
         this.#firstDefenceZone.checked = true;
         this.#secondDefenceZone.checked = true;
         this.#firstAttackZone.checked = true;

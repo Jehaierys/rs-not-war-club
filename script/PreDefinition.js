@@ -13,23 +13,28 @@ window.HEROES = {
 
     BEN_LADEN: {
         name: 'Ben Laden',
-        introImgPath: 'img/ben_laden.webp'
+        introImgPath: 'img/ben_laden.webp',
+        maxHp: 9875
     },
     HITLER: {
         name: 'Adolph Hitler',
-        introImgPath: 'img/hitler.jpeg'
+        introImgPath: 'img/hitler.jpeg',
+        maxHp: 12119
     },
     IN: {
         name: 'Kin Chang In',
-        introImgPath: 'img/in.jpeg'
+        introImgPath: 'img/in.jpeg',
+        maxHp: 11111
     },
     STALIN: {
         name: 'Iosef Stalin',
-        introImgPath: 'img/stalin_intro.jpeg'
+        introImgPath: 'img/stalin_intro.jpeg',
+        maxHp: 8989
     },
     SECRET: {
         name: 'Secret',
-        introImgPath: 'img/putin.png'
+        introImgPath: 'img/putin.png',
+        maxHp: 11890
     },
 
     list() {

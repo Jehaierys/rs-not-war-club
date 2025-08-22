@@ -8,10 +8,10 @@ class SoundAccompaniment {
         this.#themePaths.set(HEROES.HITLER, Array.of('audio/hitler-theme.mp3'));
         this.#themePaths.set(HEROES.STALIN, Array.of('audio/stalin-theme.mp3'));
 
-        this.main();
+        this.mainTheme();
     }
 
-    main() {
+    mainTheme() {
         this.#player.pause();
         this.#player.remove();
 

@@ -16,5 +16,5 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     router.welcome();
     ashes.launch().then();
-    soundAccompaniment.main();
+    soundAccompaniment.mainTheme();
 });

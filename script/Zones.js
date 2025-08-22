@@ -26,6 +26,6 @@ class Zones {
     }
 
     static getAllZones() {
-        return this.getUserDefenceZones().concat(this.getUserDefenceZones());
+        return this.getUserAttackZones().concat(this.getUserDefenceZones());
     }
 }

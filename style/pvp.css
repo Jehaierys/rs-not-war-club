@@ -5,7 +5,9 @@
     --pvp-zones-height: 30%;
     --move-button-transition: color ease calc(var(--button-transition-duration) / 5),
                               background-color ease-in-out calc(var(--button-transition-duration) / 2),
-                              border ease-in-out calc(var(--button-transition-duration) / 2)
+                              border ease-in-out calc(var(--button-transition-duration) / 2);
+    --user-hp-percent: 100%;
+    --computer-hp-percent: 100%;
 }
 
 .pvp__section {
@@ -54,11 +56,18 @@
 .pvp__div-hp {
     margin-top: 15px;
     width: var(--pvp-photo-width);
-    background-color: red;
     color: white;
     font-family: sans-serif;
     font-weight: 700;
     text-align: center;
+}
+
+.pvp__div-hp.user {
+    background: linear-gradient(to right, red var(--user-hp-percent), transparent 0);
+}
+
+.pvp__div-hp.computer {
+    background: linear-gradient(to right, red var(--computer-hp-percent), transparent 0);
 }
 
 .pvp__move {

@@ -6,8 +6,8 @@ class PvpBattle {
     #userHp;
     #computerHp;
 
-    #userHpScale;
-    #computerHpScale;
+    #userHpScale = document.getElementById('pvpUserHp');
+    #computerHpScale = document.getElementById('pvpComputerHp');
 
     #zoneInputValidator;
 
@@ -34,7 +34,7 @@ class PvpBattle {
     #initialize() {
         zoneInputValidator.initialize();
         this.#setUpHeroes();
-        this.#setUpHp();
+        this.#initializeHp();
         this.#uploadPhotos();
 
         console.log('pvp battle: ' + this.#userHero.name + ' against ' + this.#computerHero.name);
@@ -48,19 +48,22 @@ class PvpBattle {
     #pickRandomHero() {
         let randomNumber = Math.floor(Math.random() * 100);
         let heroIndex = (randomNumber % HEROES.size).toString();
-        while (HEROES.list()[heroIndex] === this.#userHero) {
+        while (HEROES.list()[heroIndex].name === this.#userHero.name) {
             randomNumber = Math.floor(Math.random() * 100);
             heroIndex = (randomNumber % HEROES.size).toString()
         }
         return HEROES.list()[heroIndex];
     }
 
-    #setUpHp() {
-        this.#userHp = 10_000;
-        this.#computerHp = 10_000;
+    #initializeHp() {
+        this.#userHp = this.#userHero.maxHp;
+        this.#computerHp = this.#computerHero.maxHp;
 
-        this.#userHpScale = document.getElementById('pvpUserHp');
-        this.#computerHpScale = document.getElementById('pvpComputerHp');
+        this.#userHpScale.innerHTML = this.#userHp;
+        this.#computerHpScale.innerHTML = this.#computerHp;
+
+        this.#userHpScale.style.setProperty('--user-ph-percent', '100%');
+        this.#computerHpScale.style.setProperty('--computer-hp-percent', '100%');
     }
 
     #uploadPhotos() {
@@ -96,6 +99,8 @@ class PvpBattle {
             // damage computer
             this.#computerHp -= 2000;
             this.#computerHpScale.innerHTML = this.#computerHp;
+            this.#computerHpScale.style
+                .setProperty('--computer-hp-percent' , `${Math.round(this.#computerHp / this.#computerHero.maxHp * 100)}%`);
 
             const message = this.#userHero.name + ' наносит 2000 ед. урона ' + this.#computerHero.name;
             terminal.message(message);
@@ -105,6 +110,8 @@ class PvpBattle {
             // damage user
             this.#userHp -= 2000;
             this.#userHpScale.innerHTML = this.#userHp;
+            this.#computerHpScale.style
+                .setProperty('--user-hp-percent', `${Math.round(this.#userHp / this.#userHero.maxHp * 100)}%`);
 
             const message = this.#computerHero.name + ' наносит 2000 ед урона ' + this.#userHero.name;
             terminal.message(message);
