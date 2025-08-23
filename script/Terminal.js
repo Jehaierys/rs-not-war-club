@@ -6,6 +6,11 @@ class Terminal {
         messageHolder.classList.add('terminal__message-holder');
         messageHolder.innerHTML = message;
         this.#terminal.appendChild(messageHolder);
+
+        this.#terminal.scrollTo({
+            top: this.#terminal.scrollHeight,
+            behavior: "smooth"
+        });
     }
 
     space() {

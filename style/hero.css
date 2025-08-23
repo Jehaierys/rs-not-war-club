@@ -4,6 +4,7 @@
 }
 
 .hero__content {
+    display: flex;
     margin-left: 2vw;
 }
 
@@ -34,4 +35,12 @@
 
 .hero__div-draws, .hero__span-draws {
     color: dimgrey;
+}
+
+.hero__div-username {
+    margin-top: 15px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+
 }

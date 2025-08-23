@@ -13,6 +13,8 @@ class PvpBattle {
 
     #pvpMoveButton = document.getElementById('pvp-move');
 
+    #activeFightId;
+
     constructor(zoneInputValidator) {
         this.#zoneInputValidator = zoneInputValidator;
     }
@@ -35,6 +37,7 @@ class PvpBattle {
         zoneInputValidator.initialize();
         terminal.cleanUp();
 
+        this.#assignUuid();
         this.#setUpHeroes();
         this.#initializeHp();
         this.#uploadPhotos();
@@ -42,6 +45,10 @@ class PvpBattle {
         soundAccompaniment.fightTheme(this.#userHero);
 
         console.log('pvp battle: ' + this.#userHero.name + ' against ' + this.#computerHero.name);
+    }
+
+    #assignUuid() {
+        this.#activeFightId = crypto.randomUUID();
     }
 
     #setUpHeroes() {
@@ -135,7 +142,7 @@ class PvpBattle {
                     .attackFlow(false, Zones.extractType(userAttackZones[0]))
                     .defending(this.#computerHero.name)
                     .isCritical(userDamage.isCritical)
-                    .damage(0)
+                    .damage(userDamage.damage)
                     .build();
 
                 terminal.message(message);

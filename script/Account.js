@@ -91,4 +91,8 @@ class Account {
 
         return map;
     }
+
+    username() {
+        return this.#username;
+    }
 }
