@@ -33,6 +33,7 @@ class PvpBattle {
 
     #initialize() {
         zoneInputValidator.initialize();
+        terminal.cleanUp();
 
         this.#setUpHeroes();
         this.#initializeHp();
@@ -98,16 +99,14 @@ class PvpBattle {
         const computerAttackZones = ComputerMoveImitator.generateComputerAttackZones();
         const computerDefenceZones = ComputerMoveImitator.generateComputerDefenceZones();
 
-        // alert('user attacks ' + Zones.extractType(userAttackZones[0])
-        //     + ', user defends ' + Zones.extractType(userDefenceZones[0]) + ', ' + Zones.extractType(userDefenceZones[1]) + '\n\n'
-        //  + 'computer attacks ' +Zones.extractType( computerAttackZones[0]) +
-        //     ', computer defends ' + Zones.extractType(computerDefenceZones[0]) + ', ' + Zones.extractType(computerDefenceZones[1]))
+        const userDamage = DamageGenerator.generate();
+        const computerDamage = DamageGenerator.generate();
 
         if (!computerDefenceZones.includes(userAttackZones[0])) {
             // damage computer
-            const damage = Damage.generate();
+            // const damage = DamageGenerator.generate();
 
-            this.#computerHp -= damage;
+            this.#computerHp -= userDamage.damage;
             this.#computerHpScale.innerHTML = this.#computerHp;
             this.#computerHpScale.style
                 .setProperty('--computer-hp-percent' , `${Math.round(this.#computerHp / this.#computerHero.maxHp * 100)}%`);
@@ -117,26 +116,47 @@ class PvpBattle {
                 .attacking(this.#userHero.name)
                 .attackFlow(true, Zones.extractType(userAttackZones[0]))
                 .defending(this.#computerHero.name)
-                .damage(damage)
+                .damage(userDamage)
                 .build()
 
             terminal.message(message);
         } else {
-            const message = MessageBuilder.builder()
-                .attacking(this.#userHero.name)
-                .attackFlow(false, Zones.extractType(userAttackZones[0]))
-                .defending(this.#computerHero.name)
-                .damage(0)
-                .build()
+            if (userDamage.isCritical) {
 
-            terminal.message(message)
+                userDamage.damage = userDamage.damage / 2;
+
+                this.#computerHp -= userDamage.damage;
+                this.#computerHpScale.innerHTML = this.#computerHp;
+                this.#computerHpScale.style
+                    .setProperty('--computer-hp-percent' , `${Math.round(this.#computerHp / this.#computerHero.maxHp * 100)}%`);
+
+                const message = MessageBuilder.builder()
+                    .attacking(this.#userHero.name)
+                    .attackFlow(false, Zones.extractType(userAttackZones[0]))
+                    .defending(this.#computerHero.name)
+                    .isCritical(userDamage.isCritical)
+                    .damage(0)
+                    .build();
+
+                terminal.message(message);
+
+            } else {
+                const message = MessageBuilder.builder()
+                    .attacking(this.#userHero.name)
+                    .attackFlow(false, Zones.extractType(userAttackZones[0]))
+                    .defending(this.#computerHero.name)
+                    .damage(0)
+                    .build();
+
+                terminal.message(message);
+            }
         }
 
         if (!userDefenceZones.includes(computerAttackZones[0])) {
             // damage user
-            const damage = Damage.generate();
+            // const damage = Damage.generate();
 
-            this.#userHp -= damage;
+            this.#userHp -= computerDamage.damage;
             this.#userHpScale.innerHTML = this.#userHp;
             this.#userHpScale.style
                 .setProperty('--user-hp-percent', `${Math.round(this.#userHp / this.#userHero.maxHp * 100)}%`);
@@ -146,22 +166,43 @@ class PvpBattle {
                 .attacking(this.#computerHero.name)
                 .attackFlow(true, Zones.extractType(computerAttackZones[0]))
                 .defending(this.#userHero.name)
-                .damage(damage)
+                .damage(computerDamage.damage)
                 .build()
 
             terminal.message(message);
         } else {
-            const message = MessageBuilder
-                .builder()
-                .attacking(this.#computerHero.name)
-                .attackFlow(false, Zones.extractType(computerAttackZones[0]))
-                .defending(this.#userHero.name)
-                .damage(0)
-                .build()
+            if (computerDamage.isCritical) {
 
-            terminal.message(message);
+                computerDamage.damage = computerDamage.damage / 2;
+
+                this.#userHp -= computerDamage.damage;
+                this.#userHpScale.innerHTML = this.#userHp;
+                this.#userHpScale.style
+                    .setProperty('--user-hp-percent', `${Math.round(this.#userHp / this.#userHero.maxHp * 100)}%`);
+
+                const message = MessageBuilder
+                    .builder()
+                    .attacking(this.#computerHero.name)
+                    .attackFlow(false, Zones.extractType(computerAttackZones[0]))
+                    .defending(this.#userHero.name)
+                    .isCritical(computerDamage.isCritical)
+                    .damage(computerDamage.damage)
+                    .build();
+
+                terminal.message(message);
+
+            } else {
+                const message = MessageBuilder
+                    .builder()
+                    .attacking(this.#computerHero.name)
+                    .attackFlow(false, Zones.extractType(computerAttackZones[0]))
+                    .defending(this.#userHero.name)
+                    .damage(0)
+                    .build()
+
+                terminal.message(message);
+            }
         }
-
         terminal.space();
     }
 

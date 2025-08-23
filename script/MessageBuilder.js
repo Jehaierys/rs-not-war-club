@@ -20,6 +20,13 @@ class MessageBuilder {
         return this;
     }
 
+    isCritical(isCritical) {
+        if (isCritical) {
+            this.#message += ', но врагу нанёсён большой урон';
+        }
+        return this;
+    }
+
     damage(damage) {
         if (damage > 0) {
             this.#message += `, нанесено ${damage} ед. урона`;
