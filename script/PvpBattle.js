@@ -233,4 +233,8 @@ class PvpBattle {
         }
         account.save();
     }
+
+    isActive() {
+        return this.#userHp > 0 && this.#computerHp > 0;
+    }
 }

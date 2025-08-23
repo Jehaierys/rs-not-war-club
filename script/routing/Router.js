@@ -16,11 +16,13 @@ class Router {
     }
 
     route(nextPage) {
-        console.log("router: go to " + nextPage.classList.item(0));
+        console.log("router: try to go to " + nextPage.classList.item(0));
 
+        this.#checkPermission()
+
+        this.#handleNextPage(nextPage);
         this.#handleHeader(nextPage);
         this.#handleCurrentPage();
-        this.#handleNextPage(nextPage);
         this.#display(nextPage);
 
         this.#currentPage = nextPage;
@@ -95,6 +97,13 @@ class Router {
             case PAGES.PVP_PAGE:
                 pvpBattle.start();
                 break;
+        }
+    }
+
+    #checkPermission() {
+        if (pvpBattle.isActive()) {
+            alert('Finish the battle before');
+            throw new Error('Finish the battle before');
         }
     }
 }

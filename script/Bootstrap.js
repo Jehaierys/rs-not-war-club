@@ -21,8 +21,4 @@ window.addEventListener('DOMContentLoaded', () => {
     router.welcome();
     ashes.launch().then();
     soundAccompaniment.mainTheme();
-
-    //
-    // alert(defaultMessageTemplate.template(true, Zones.types().NUCLEAR))
-
 });
