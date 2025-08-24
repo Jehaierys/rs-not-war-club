@@ -103,6 +103,9 @@ class Router {
             case PAGES.PVP_PAGE:
                 pvpBattle.start();
                 break;
+            case PAGES.SETTING_PAGE:
+                settingPageHandler.handle();
+                break;
         }
     }
 

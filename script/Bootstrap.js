@@ -1,11 +1,13 @@
+settingPageHandler = new SettingPageHandler();
+soundAccompaniment = new SoundAccompaniment();
+terminal = new Terminal();
+
 account = new Account();
 router = new Router();
 zoneInputValidator = new ZoneInputValidator();
 zoneInputObserver = new ZoneInputObserver(zoneInputValidator);
-terminal = new Terminal();
 heroPageHandler = new HeroPageHandler();
 ashes = new Ashes();
-soundAccompaniment = new SoundAccompaniment();
 defaultMessageTemplate = new DefaultMessageTemplates();
 
 window.addEventListener('DOMContentLoaded', () => {

@@ -227,10 +227,13 @@ class PvpBattle {
         this.#uncompletedBattle = null;
         localStorage.removeItem('uncompletedBattle');
 
-        soundAccompaniment.stop();
-        terminal.cleanUp();
         this.#processResults();
-        router.route(PAGES.HERO_PAGE);
+
+        setTimeout(() => {
+            soundAccompaniment.stop();
+            terminal.cleanUp();
+            // router.route(PAGES.HERO_PAGE);
+        }, 1500);
     }
 
     #processResults() {

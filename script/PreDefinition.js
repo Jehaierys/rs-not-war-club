@@ -68,7 +68,7 @@ window.HEROES = {
 let account, router, zoneInputValidator,
     zoneInputObserver, pvpBattle, terminal,
     heroPageHandler, ashes, soundAccompaniment,
-    defaultMessageTemplate;
+    defaultMessageTemplate, settingPageHandler;
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

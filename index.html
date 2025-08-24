@@ -169,6 +169,11 @@
   </section>
 
   <section class="setting__section">
+    <div class="setting__content">
+      <label for="setting__input-username" class="setting__label">Username
+        <input class="setting__input-username" id="setting__input-username" maxlength="15" placeholder="new username"></label>
+      <button class="setting__button" onclick="account.changeUsername(document.getElementById('setting__input-username').value); account.save()">Save</button>
+    </div>
   </section>
 
   <section class="terminal__section" id="terminal">
@@ -176,7 +181,9 @@
 
 </main>
 <script src="script/PreDefinition.js"></script>
+
 <script src="script/zone/Zones.js"></script>
+<script src="script/routing/SettingPageHandler.js"></script>
 <script src="script/routing/HeroPageHandler.js"></script>
 <script src="script/AshGenerator.js"></script>
 <script src="script/SoundAccompaniment.js"></script>

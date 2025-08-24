@@ -95,4 +95,8 @@ class Account {
     username() {
         return this.#username;
     }
+
+    changeUsername(newUsername) {
+        this.#username = newUsername;
+    }
 }
