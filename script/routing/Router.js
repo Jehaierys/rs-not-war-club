@@ -5,10 +5,16 @@ class Router {
     #currentPage;
 
     welcome() {
-        if (account.checkRegistered()) {
+        if (this.#checkUncompletedBattle()) {
+            console.log("router: let's finish the battle");
+            this.#hide(PAGES.REGISTRATION_PAGE);
+            this.route(PAGES.PVP_PAGE);
+
+        } else if (account.checkRegistered()) {
             console.log('router: welcome to home page');
             this.#hide(PAGES.REGISTRATION_PAGE);
             this.route(PAGES.HOME_PAGE);
+
         } else {
             console.log('router: welcome to registration page');
             this.route(PAGES.REGISTRATION_PAGE);
@@ -18,7 +24,7 @@ class Router {
     route(nextPage) {
         console.log("router: try to go to " + nextPage.classList.item(0));
 
-        this.#checkPermission()
+        this.#checkPermission();
 
         this.#handleNextPage(nextPage);
         this.#handleHeader(nextPage);
@@ -105,5 +111,9 @@ class Router {
             alert('Finish the battle before');
             throw new Error('Finish the battle before');
         }
+    }
+
+    #checkUncompletedBattle() {
+        return localStorage.getItem('uncompletedBattle');
     }
 }

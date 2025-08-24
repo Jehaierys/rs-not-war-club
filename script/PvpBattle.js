@@ -13,10 +13,13 @@ class PvpBattle {
 
     #pvpMoveButton = document.getElementById('pvp-move');
 
-    #activeFightId;
+    #uncompletedBattle;
 
     constructor(zoneInputValidator) {
         this.#zoneInputValidator = zoneInputValidator;
+
+        // const fightData= Fight.load();
+
     }
 
     async start() {
@@ -29,7 +32,9 @@ class PvpBattle {
                 await this.#waitForClick(this.#pvpMoveButton);
             }
             this.#doMove();
+            this.#saveBattle();
         }
+        console.log('pvp battle: someone is dead');
         this.#finish();
     }
 
@@ -37,18 +42,25 @@ class PvpBattle {
         zoneInputValidator.initialize();
         terminal.cleanUp();
 
-        this.#assignUuid();
-        this.#setUpHeroes();
-        this.#initializeHp();
+        this.#uncompletedBattle = Battle.load();
+
+        if (this.#uncompletedBattle) {
+            this.#thyToRestorePreviousBattle();
+        } else {
+            this.#setUpHeroes();
+            this.#initializeHp();
+
+            this.#uncompletedBattle = new Battle(this.#userHero.name, this.#computerHero.name, this.#userHp, this.#computerHp);
+        }
         this.#uploadPhotos();
 
-        soundAccompaniment.fightTheme(this.#userHero);
+        try {
+            soundAccompaniment.fightTheme(this.#userHero);
+        } catch (e) {
+            console.error(e);
+        }
 
         console.log('pvp battle: ' + this.#userHero.name + ' against ' + this.#computerHero.name);
-    }
-
-    #assignUuid() {
-        this.#activeFightId = crypto.randomUUID();
     }
 
     #setUpHeroes() {
@@ -111,7 +123,6 @@ class PvpBattle {
 
         if (!computerDefenceZones.includes(userAttackZones[0])) {
             // damage computer
-            // const damage = DamageGenerator.generate();
 
             this.#computerHp -= userDamage.damage;
             this.#computerHpScale.innerHTML = this.#computerHp;
@@ -161,7 +172,6 @@ class PvpBattle {
 
         if (!userDefenceZones.includes(computerAttackZones[0])) {
             // damage user
-            // const damage = Damage.generate();
 
             this.#userHp -= computerDamage.damage;
             this.#userHpScale.innerHTML = this.#userHp;
@@ -214,6 +224,9 @@ class PvpBattle {
     }
 
     #finish() {
+        this.#uncompletedBattle = null;
+        localStorage.removeItem('uncompletedBattle');
+
         soundAccompaniment.stop();
         terminal.cleanUp();
         this.#processResults();
@@ -236,5 +249,32 @@ class PvpBattle {
 
     isActive() {
         return this.#userHp > 0 && this.#computerHp > 0;
+    }
+
+    #thyToRestorePreviousBattle() {
+        if (this.#uncompletedBattle) {
+            this.#userHero = HEROES.getByName(this.#uncompletedBattle.userHeroName);
+            this.#computerHero = HEROES.getByName(this.#uncompletedBattle.computerHeroName);
+
+            this.#userHp = parseInt(this.#uncompletedBattle.userHp);
+            this.#computerHp = parseInt(this.#uncompletedBattle.computerHp);
+
+            this.#computerHpScale.innerHTML = this.#computerHp;
+            this.#userHpScale.innerHTML = this.#userHp;
+
+            this.#userHpScale.style
+                .setProperty('--user-hp-percent', `${Math.round(this.#userHp / this.#userHero.maxHp * 100)}%`);
+            this.#computerHpScale.style
+                .setProperty('--computer-hp-percent' , `${Math.round(this.#computerHp / this.#computerHero.maxHp * 100)}%`);
+        }
+    }
+
+    #saveBattle() {
+        this.#uncompletedBattle.userHp = this.#userHp;
+        this.#uncompletedBattle.computerHp = this.#computerHp;
+
+        this.#uncompletedBattle.save();
+
+        console.log('battle saved');
     }
 }
