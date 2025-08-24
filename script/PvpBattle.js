@@ -25,7 +25,7 @@ class PvpBattle {
         while (this.#bothAreAlive()) {
             await this.#waitForClick(this.#pvpMoveButton);
             while (this.#moveInvalid()) {
-                alert('wrong input');
+                alert('pick one attack zone and two defence zones');
                 await this.#waitForClick(this.#pvpMoveButton);
             }
             this.#doMove();
