@@ -5,13 +5,16 @@ class Battle {
     userHp;
     computerHp;
 
-    constructor(userHeroName, computerHeroName, userHp, computerHp) {
+    terminalContent;
+
+    constructor(userHeroName, computerHeroName, userHp, computerHp, terminalContent) {
         this.userHeroName = userHeroName;
         this.computerHeroName = computerHeroName;
 
         this.userHp = userHp;
         this.computerHp = computerHp;
 
+        this.terminalContent = terminalContent;
     }
 
     save() {
@@ -19,7 +22,8 @@ class Battle {
             userHeroName: this.userHeroName,
             computerHeroName: this.computerHeroName,
             userHp: this.userHp,
-            computerHp: this.computerHp
+            computerHp: this.computerHp,
+            terminalContent: this.terminalContent
         };
         localStorage.setItem('uncompletedBattle', JSON.stringify(data));
     }
@@ -34,7 +38,8 @@ class Battle {
                 parsed.userHeroName,
                 parsed.computerHeroName,
                 parsed.userHp,
-                parsed.computerHp
+                parsed.computerHp,
+                parsed.terminalContent
             );
         } catch (e) {
             console.error("Error occurred parsing the fight ", e);

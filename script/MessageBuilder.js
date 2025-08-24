@@ -1,8 +1,12 @@
 class MessageBuilder {
-    #messageDefinition = new Map();
+    #messageDefinition;
+
+    constructor(messageDefinition) {
+        this.#messageDefinition = messageDefinition;
+    }
 
     static builder() {
-        return new MessageBuilder();
+        return new MessageBuilder(new Map());
     }
 
     attacking(heroName) {
@@ -13,10 +17,10 @@ class MessageBuilder {
     }
 
     attackFlow(successful, type) {
-        this.#messageDefinition.set('attackFlowSuccessful', successful);
-
         const messagePart = defaultMessageTemplate.template(successful, type);
         this.#messageDefinition.set('attackFlowPart', messagePart);
+
+        this.#messageDefinition.set('attackFlowSuccessful', successful);
 
         return this;
     }
@@ -32,9 +36,9 @@ class MessageBuilder {
         let messagePart;
 
         if (isCritical && this.#messageDefinition.get('attackFlowSuccessful')) {
-            messagePart = ', и это было потрясающе - ';
+            messagePart = ', и это было <b class="terminal__emphasized">потрясающе</b> - ';
         } else if (isCritical) {
-            messagePart = ', но это было слишком болезненно - ';
+            messagePart = ', но это было <b class="terminal__emphasized">слишком</b> болезненно - ';
         } else {
             messagePart = ', ';
         }

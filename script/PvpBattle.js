@@ -135,7 +135,7 @@ class PvpBattle {
                 .attackFlow(true, Zones.extractType(userAttackZones[0]))
                 .defending(this.#computerHero.name)
                 .isCritical(userDamage.isCritical)
-                .damage(userDamage)
+                .damage(userDamage.damage)
                 .build()
 
             terminal.message(message);
@@ -160,17 +160,20 @@ class PvpBattle {
                 terminal.message(message);
 
             } else {
+
+                userDamage.damage = -1;
                 const message = MessageBuilder.builder()
                     .attacking(this.#userHero.name)
                     .attackFlow(false, Zones.extractType(userAttackZones[0]))
                     .defending(this.#computerHero.name)
                     .isCritical(userDamage.isCritical)
-                    .damage(0)
+                    .damage(userDamage.damage)
                     .build();
 
                 terminal.message(message);
             }
         }
+        console.log(this.#computerHero.name + ' -' + userDamage.damage + ' is critical: ' + userDamage.isCritical);
 
         if (!userDefenceZones.includes(computerAttackZones[0])) {
             // damage user
@@ -193,7 +196,7 @@ class PvpBattle {
         } else {
             if (computerDamage.isCritical) {
 
-                computerDamage.damage = computerDamage.damage / 2;
+                computerDamage.damage = Math.round(computerDamage.damage / 2);
 
                 this.#userHp -= computerDamage.damage;
                 this.#userHpScale.innerHTML = this.#userHp;
@@ -212,18 +215,21 @@ class PvpBattle {
                 terminal.message(message);
 
             } else {
+                computerDamage.damage = -1;
+
                 const message = MessageBuilder
                     .builder()
                     .attacking(this.#computerHero.name)
                     .attackFlow(false, Zones.extractType(computerAttackZones[0]))
                     .defending(this.#userHero.name)
                     .isCritical(computerDamage.isCritical)
-                    .damage(0)
+                    .damage(computerDamage.damage)
                     .build()
 
                 terminal.message(message);
             }
         }
+        console.log(this.#userHero.name + ' -' + computerDamage.damage + ' is critical: ' + computerDamage.isCritical);
         terminal.space();
     }
 
@@ -237,13 +243,13 @@ class PvpBattle {
 
     #processResults() {
         if (this.#userHp > 0) {
-            alert('Вы победили');
+            terminal.message('Вы победили');
             account.incrementWins();
         } else if (this.#computerHp > 0) {
-            alert('вы проиграли')
+            terminal.message('вы проиграли👎👎👎');
             account.incrementDefeats();
         } else {
-            alert('Победила дружба бензопила')
+            terminal.message('Победила дружба');
             account.incrementDraws();
         }
         account.save();
@@ -268,12 +274,15 @@ class PvpBattle {
                 .setProperty('--user-hp-percent', `${Math.round(this.#userHp / this.#userHero.maxHp * 100)}%`);
             this.#computerHpScale.style
                 .setProperty('--computer-hp-percent' , `${Math.round(this.#computerHp / this.#computerHero.maxHp * 100)}%`);
+
+            terminal.restore(this.#uncompletedBattle.terminalContent);
         }
     }
 
     #saveBattle() {
         this.#uncompletedBattle.userHp = this.#userHp;
         this.#uncompletedBattle.computerHp = this.#computerHp;
+        this.#uncompletedBattle.terminalContent = terminal.content();
 
         this.#uncompletedBattle.save();
 

@@ -23,4 +23,12 @@ class Terminal {
     cleanUp() {
         this.#terminal.innerHTML = '';
     }
+
+    content() {
+        return this.#terminal.innerHTML;
+    }
+
+    restore(content) {
+        this.#terminal.innerHTML = content;
+    }
 }
