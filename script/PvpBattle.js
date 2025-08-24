@@ -246,7 +246,7 @@ class PvpBattle {
             terminal.message('Вы победили');
             account.incrementWins();
         } else if (this.#computerHp > 0) {
-            terminal.message('вы проиграли👎👎👎');
+            terminal.message('Вы проиграли👎👎👎');
             account.incrementDefeats();
         } else {
             terminal.message('Победила дружба');
