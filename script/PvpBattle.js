@@ -134,6 +134,7 @@ class PvpBattle {
                 .attacking(this.#userHero.name)
                 .attackFlow(true, Zones.extractType(userAttackZones[0]))
                 .defending(this.#computerHero.name)
+                .isCritical(userDamage.isCritical)
                 .damage(userDamage)
                 .build()
 
@@ -163,6 +164,7 @@ class PvpBattle {
                     .attacking(this.#userHero.name)
                     .attackFlow(false, Zones.extractType(userAttackZones[0]))
                     .defending(this.#computerHero.name)
+                    .isCritical(userDamage.isCritical)
                     .damage(0)
                     .build();
 
@@ -183,6 +185,7 @@ class PvpBattle {
                 .attacking(this.#computerHero.name)
                 .attackFlow(true, Zones.extractType(computerAttackZones[0]))
                 .defending(this.#userHero.name)
+                .isCritical(computerDamage.isCritical)
                 .damage(computerDamage.damage)
                 .build()
 
@@ -214,6 +217,7 @@ class PvpBattle {
                     .attacking(this.#computerHero.name)
                     .attackFlow(false, Zones.extractType(computerAttackZones[0]))
                     .defending(this.#userHero.name)
+                    .isCritical(computerDamage.isCritical)
                     .damage(0)
                     .build()
 
@@ -228,12 +232,7 @@ class PvpBattle {
         localStorage.removeItem('uncompletedBattle');
 
         this.#processResults();
-
-        setTimeout(() => {
-            soundAccompaniment.stop();
-            terminal.cleanUp();
-            // router.route(PAGES.HERO_PAGE);
-        }, 1500);
+        soundAccompaniment.fadeOut();
     }
 
     #processResults() {

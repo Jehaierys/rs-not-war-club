@@ -1,42 +1,66 @@
 class MessageBuilder {
-    #message = '';
+    #messageDefinition = new Map();
 
     static builder() {
         return new MessageBuilder();
     }
 
     attacking(heroName) {
-        this.#message += '<b class="terminal__emphasized">' + heroName + '</b>';
+        const messagePart = '<b class="terminal__emphasized">' + heroName + '</b>';
+        this.#messageDefinition.set('attackingPart', messagePart);
+
         return this;
     }
 
     attackFlow(successful, type) {
-        this.#message += defaultMessageTemplate.template(successful, type);
+        this.#messageDefinition.set('attackFlowSuccessful', successful);
+
+        const messagePart = defaultMessageTemplate.template(successful, type);
+        this.#messageDefinition.set('attackFlowPart', messagePart);
+
         return this;
     }
 
     defending(heroName) {
-        this.#message += '<b class="terminal__emphasized">' + heroName + '</b>';
+        const messagePart= '<b class="terminal__emphasized">' + heroName + '</b>';
+        this.#messageDefinition.set('defendingPart', messagePart);
+
         return this;
     }
 
     isCritical(isCritical) {
-        if (isCritical) {
-            this.#message += ', но врагу нанёсён большой урон';
+        let messagePart;
+
+        if (isCritical && this.#messageDefinition.get('attackFlowSuccessful')) {
+            messagePart = ', и это было потрясающе - ';
+        } else if (isCritical) {
+            messagePart = ', но это было слишком болезненно - ';
+        } else {
+            messagePart = ', ';
         }
+
+        this.#messageDefinition.set('isCriticalPart', messagePart);
         return this;
     }
 
     damage(damage) {
+        let messagePart;
+
         if (damage > 0) {
-            this.#message += `, нанесено <b class="terminal__emphasized">${damage}</b> ед. урона`;
+            messagePart = `нанесено <b class="terminal__emphasized">${damage}</b> ед. урона`;
         } else {
-            this.#message += ', неудача';
+            messagePart = 'неудача';
         }
+
+        this.#messageDefinition.set('damagePart', messagePart);
         return this;
     }
 
     build() {
-        return this.#message;
+        return this.#messageDefinition.get('attackingPart') +
+            this.#messageDefinition.get('attackFlowPart') +
+            this.#messageDefinition.get('defendingPart') +
+            this.#messageDefinition.get('isCriticalPart') +
+            this.#messageDefinition.get('damagePart');
     }
 }

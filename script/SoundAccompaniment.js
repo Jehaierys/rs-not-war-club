@@ -44,6 +44,13 @@ class SoundAccompaniment {
                 this.#player.currentTime = 56.2;
                 this.#player.volume = 0.85;
                 break;
+            case HEROES.BEN_LADEN:
+                if (path === this.#themePaths.get(HEROES.BEN_LADEN)[1]) {
+                    this.#player.currentTime = 1.5;
+                } else {
+                    this.#player.currentTime = 0.3;
+                }
+                break;
             default:
                 this.#player.volume = this.#volume;
         }
@@ -53,6 +60,27 @@ class SoundAccompaniment {
         this.#player.play().catch(err => {
             console.warn("Не удалось воспроизвести аудио:", err);
         });
+    }
+
+    fadeOut() {
+        const audio = this.#player;
+        const delay = 1000;
+        const duration = 1500;
+
+        setTimeout(() => {
+            if (!audio) return;
+            let step = audio.volume / (duration / 50);
+
+            let fade = setInterval(() => {
+                if (audio.volume > step) {
+                    audio.volume = Math.max(0, audio.volume - step);
+                } else {
+                    audio.volume = 0;
+                    audio.pause(); // останавливаем плеер
+                    clearInterval(fade);
+                }
+            }, 50);
+        }, delay);
     }
 
     stop() {
