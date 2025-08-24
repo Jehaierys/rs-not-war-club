@@ -30,6 +30,10 @@
     height: 3vh;
     flex-shrink: 0;
 }
+.terminal__emphasized {
+    color: #FF3333;
+    opacity: 0.9;
+}
 
 .scrollable {
 }

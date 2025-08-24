@@ -6,7 +6,7 @@ class MessageBuilder {
     }
 
     attacking(heroName) {
-        this.#message += heroName;
+        this.#message += '<b class="terminal__emphasized">' + heroName + '</b>';
         return this;
     }
 
@@ -16,7 +16,7 @@ class MessageBuilder {
     }
 
     defending(heroName) {
-        this.#message += heroName;
+        this.#message += '<b class="terminal__emphasized">' + heroName + '</b>';
         return this;
     }
 
@@ -29,7 +29,7 @@ class MessageBuilder {
 
     damage(damage) {
         if (damage > 0) {
-            this.#message += `, нанесено ${damage} ед. урона`;
+            this.#message += `, нанесено <b class="terminal__emphasized">${damage}</b> ед. урона`;
         } else {
             this.#message += ', неудача';
         }
